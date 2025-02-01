@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     # Third-party apps
+    "rest_framework",  # Django REST Framework for APIs
+
+    # Your apps
+    "marketplace",  # Register the marketplace app here
 ]
 
 MIDDLEWARE = [
