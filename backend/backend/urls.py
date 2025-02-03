@@ -15,8 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from marketplace.views import home  # Import homepage view
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("", home, name="home"),  # This will now handle /
+    path("admin/", admin.site.urls),  # Admin panel
+    path("api/", include("marketplace.urls")),  # Include marketplace app URLs
 ]
