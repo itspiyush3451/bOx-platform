@@ -9,12 +9,22 @@ const AddBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/books/`, {
-        title,
-        description,
-        price,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/books/`,
+        {
+          title,
+          description,
+          price,
+        }
+      );
+
+      console.log("Book added:", response.data);
       alert("Book added successfully!");
+
+      // Clear form fields after successful submission
+      setTitle("");
+      setDescription("");
+      setPrice("");
     } catch (error) {
       console.error("Error adding book:", error);
       alert("Failed to add book.");
