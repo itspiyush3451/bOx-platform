@@ -11,17 +11,13 @@ const AddBook = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/books/`,
-        {
-          title,
-          description,
-          price,
-        }
+        { title, description, price }
       );
 
       console.log("Book added:", response.data);
       alert("Book added successfully!");
 
-      // Clear form fields after successful submission
+      // Clear form fields
       setTitle("");
       setDescription("");
       setPrice("");
