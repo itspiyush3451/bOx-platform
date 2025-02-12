@@ -19,11 +19,16 @@ class BookListCreateView(generics.ListCreateAPIView):
 class NoteListCreateView(generics.ListCreateAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
-    parser_classes = (MultiPartParser , FormParser)
+    parser_classes = (MultiPartParser, FormParser)  # Ensure this is active
 
     def post(self, request, *args, **kwargs):
+        print("Received Data:", request.data)  # Debugging log
+        print("Received Files:", request.FILES)
+
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        print("Errors:", serializer.errors)  # Print validation errors
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
