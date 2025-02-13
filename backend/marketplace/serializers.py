@@ -11,4 +11,4 @@ class BookSerializer(serializers.ModelSerializer):
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
-        fields = ['title', 'subject', 'price', 'file'] # Serialize all fields
+        fields = ['id','title', 'subject', 'price', 'file'] # Serialize all fields
