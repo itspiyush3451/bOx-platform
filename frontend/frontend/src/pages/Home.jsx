@@ -1,76 +1,53 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import Navbar from "./Navbar"; // Import the Navbar component
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const [books, setBooks] = useState([]);
-  const [notes, setNotes] = useState([]);
-
-  useEffect(() => {
-    // Fetch Books
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/books/`)
-      .then((response) => {
-        console.log("Books API Response:", response.data);
-        setBooks(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching books:", error);
-      });
-
-    // Fetch Notes
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/notes/`)
-      .then((response) => {
-        console.log("Notes API Response:", response.data);
-        setNotes(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching notes:", error);
-      });
-  }, []);
-
   return (
     <div>
-      <h1>Marketplace</h1>
+      {/* Include Navbar */}
+      <Navbar />
 
-      {/* Books Section */}
-      <h2>Books for Sale</h2>
-      {Array.isArray(books) && books.length > 0 ? (
-        <ul>
-          {books.map((book) => (
-            <li key={book.id}>
-              <strong>{book.title}</strong> - ₹{book.price}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No books available</p>
-      )}
-
-      {/* Notes Section */}
-      <h2>Notes Available</h2>
-      {Array.isArray(notes) && notes.length > 0 ? (
-        <ul>
-          {notes.map((note) => (
-            <li key={note.id}>
-              <strong>{note.title}</strong> - {note.description}
-              {note.file && (
-                <a
-                  href={`${import.meta.env.VITE_API_URL}${note.file}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  📄 View File
-                </a>
-              )}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No notes available</p>
-      )}
+      {/* Homepage Content */}
+      <div style={styles.container}>
+        <h1>Welcome to Notes & Books App 📚</h1>
+        <p>Manage your books and notes easily with this app.</p>
+        <div style={styles.buttons}>
+          <Link to="/books" style={styles.button}>
+            View Books
+          </Link>
+          <Link to="/notes" style={styles.button}>
+            View Notes
+          </Link>
+          <Link to="/add-note" style={styles.button}>
+            Add a Note
+          </Link>
+          <Link to="/add-book" style={styles.button}>
+            Add a Book
+          </Link>
+        </div>
+      </div>
     </div>
   );
+};
+
+// Styles for better UI
+const styles = {
+  container: {
+    textAlign: "center",
+    marginTop: "50px",
+  },
+  buttons: {
+    marginTop: "20px",
+  },
+  button: {
+    display: "inline-block",
+    padding: "10px 20px",
+    margin: "10px",
+    backgroundColor: "#007BFF",
+    color: "white",
+    textDecoration: "none",
+    borderRadius: "5px",
+  },
 };
 
 export default Home;
